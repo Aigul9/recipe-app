@@ -2,6 +2,8 @@ package springframework.recipe.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +31,11 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
+    // ordinal (default) - persist as 1, 2, 3 (can be messed up with inserts in the middle)
+    // string - as strings
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
+
     // notes will be deleted if recipe is deleted
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
@@ -44,8 +51,7 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-
-
+    
     public String getDescription() {
         return description;
     }
@@ -110,11 +116,27 @@ public class Recipe {
         this.image = image;
     }
 
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public Notes getNotes() {
         return notes;
     }
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
