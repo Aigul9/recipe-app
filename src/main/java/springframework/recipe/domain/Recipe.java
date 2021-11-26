@@ -7,7 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.Set;
@@ -31,7 +34,7 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
-    // ordinal (default) - persist as 1, 2, 3 (can be messed up with inserts in the middle)
+    // ordinal (default) - persist as 0, 1, 2 (can be messed up with inserts in the middle)
     // string - as strings
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
@@ -40,9 +43,16 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
 
-    // mappedBy - fk
+    // mappedBy_id = fk
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -51,7 +61,7 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -138,5 +148,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
