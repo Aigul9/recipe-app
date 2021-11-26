@@ -29,6 +29,8 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     // large objects (blob - binary large object)
@@ -46,7 +48,8 @@ public class Recipe {
 
     // mappedBy_id = fk
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private Set<Ingredient> ingredients = new HashSet<>();;
+    // avoid null pointer exception
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
