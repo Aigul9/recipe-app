@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
@@ -31,6 +32,9 @@ class IndexControllerTest {
 
     IndexController indexController;
 
+    @Captor
+    ArgumentCaptor<Set<Recipe>> argumentCaptor;
+
     @BeforeEach
     void setUp() {
         indexController = new IndexController(recipeServiceImpl);
@@ -47,8 +51,6 @@ class IndexControllerTest {
         recipes.add(recipe);
 
         when(recipeServiceImpl.getRecipes()).thenReturn(recipes);
-
-        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
         //when
         String viewName = indexController.getIndexPage(model);
