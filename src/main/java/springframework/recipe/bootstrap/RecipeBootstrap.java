@@ -14,6 +14,7 @@ import springframework.recipe.repositories.CategoryRepository;
 import springframework.recipe.repositories.RecipeRepository;
 import springframework.recipe.repositories.UnitOfMeasureRepository;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +36,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        log.debug("Loading bootstrap data");
         recipeRepository.saveAll(getRecipes());
-        log.debug("----Loading bootstrap data----");
     }
 
     private UnitOfMeasure getUnitOfMeasure(String description) {
