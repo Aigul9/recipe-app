@@ -2,10 +2,10 @@ package springframework.recipe.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
-import springframework.recipe.services.RecipeService;
 import springframework.recipe.services.RecipeServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +14,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class IndexControllerTest {
 
     @Mock
@@ -26,7 +27,6 @@ class IndexControllerTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         indexController = new IndexController(recipeServiceImpl);
     }
 

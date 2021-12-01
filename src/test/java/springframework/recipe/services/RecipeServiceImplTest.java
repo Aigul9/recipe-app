@@ -2,8 +2,9 @@ package springframework.recipe.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import springframework.recipe.domain.Recipe;
 import springframework.recipe.repositories.RecipeRepository;
 
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class RecipeServiceImplTest {
 
     RecipeServiceImpl recipeServiceImpl;
@@ -24,7 +26,6 @@ class RecipeServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         recipeServiceImpl = new RecipeServiceImpl(recipeRepository);
     }
 
