@@ -27,6 +27,8 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
     @Nullable
     @Override
     public Recipe convert(RecipeCommand source) {
+        if (source == null) return null;
+
         final Recipe recipe = new Recipe();
         recipe.setCookTime(source.getCookTime());
         recipe.setPrepTime(source.getPrepTime());
@@ -36,7 +38,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setServings(source.getServings());
         recipe.setSource(source.getSource());
         recipe.setUrl(source.getUrl());
-        recipe.setNotes(Objects.requireNonNull(notesConverter.convert(source.getNotes())));
+//        recipe.setNotes(notesConverter.convert(source.getNotes()));
 
         if (source.getCategories() != null && source.getCategories().size() > 0){
             source.getCategories()

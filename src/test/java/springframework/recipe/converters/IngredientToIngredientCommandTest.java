@@ -30,26 +30,6 @@ class IngredientToIngredientCommandTest {
     }
 
     @Test
-    public void testConvertNullUOM() {
-        //given
-        Ingredient ingredient = new Ingredient();
-        ingredient.setRecipe(RECIPE);
-        ingredient.setAmount(AMOUNT);
-        ingredient.setDescription(DESCRIPTION);
-        ingredient.setUom(null);
-
-        //when
-        IngredientCommand ingredientCommand = converter.convert(ingredient);
-
-        //then
-        assert ingredientCommand != null;
-        assertNull(ingredientCommand.getUnitOfMeasure());
-//         assertEquals(RECIPE, ingredientCommand.get);
-        assertEquals(AMOUNT, ingredientCommand.getAmount());
-        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
-    }
-
-    @Test
     public void testConvertWithUom() {
         //given
         Ingredient ingredient = new Ingredient();
@@ -69,6 +49,26 @@ class IngredientToIngredientCommandTest {
         assertNotNull(ingredientCommand.getUnitOfMeasure());
 
         // assertEquals(RECIPE, ingredientCommand.get);
+        assertEquals(AMOUNT, ingredientCommand.getAmount());
+        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+    }
+
+    @Test
+    public void testConvertNullUOM() {
+        //given
+        Ingredient ingredient = new Ingredient();
+        ingredient.setRecipe(RECIPE);
+        ingredient.setAmount(AMOUNT);
+        ingredient.setDescription(DESCRIPTION);
+        ingredient.setUom(null);
+
+        //when
+        IngredientCommand ingredientCommand = converter.convert(ingredient);
+
+        //then
+        assert ingredientCommand != null;
+        assertNull(ingredientCommand.getUnitOfMeasure());
+//         assertEquals(RECIPE, ingredientCommand.get);
         assertEquals(AMOUNT, ingredientCommand.getAmount());
         assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }

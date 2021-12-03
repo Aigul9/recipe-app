@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecipeCommandToRecipeTest {
 
-    public static final Long RECIPE_ID = 1L;
     public static final Integer COOK_TIME = Integer.valueOf("5");
     public static final Integer PREP_TIME = Integer.valueOf("7");
     public static final String DESCRIPTION = "My Recipe";
@@ -22,7 +21,6 @@ class RecipeCommandToRecipeTest {
     public static final Integer SERVINGS = Integer.valueOf("3");
     public static final String SOURCE = "Source";
     public static final String URL = "Some URL";
-    public static final Long NOTES_ID = 9L;
 
     RecipeCommandToRecipe converter;
     
@@ -52,7 +50,6 @@ class RecipeCommandToRecipeTest {
         recipeCommand.setUrl(URL);
 
         NotesCommand notes = new NotesCommand();
-
         recipeCommand.setNotes(notes);
 
         CategoryCommand category = new CategoryCommand();
@@ -71,7 +68,6 @@ class RecipeCommandToRecipeTest {
         Recipe recipe  = converter.convert(recipeCommand);
 
         assertNotNull(recipe);
-        assertEquals(RECIPE_ID, recipe.getId());
         assertEquals(COOK_TIME, recipe.getCookTime());
         assertEquals(PREP_TIME, recipe.getPrepTime());
         assertEquals(DESCRIPTION, recipe.getDescription());
@@ -80,7 +76,6 @@ class RecipeCommandToRecipeTest {
         assertEquals(SERVINGS, recipe.getServings());
         assertEquals(SOURCE, recipe.getSource());
         assertEquals(URL, recipe.getUrl());
-        assertEquals(NOTES_ID, recipe.getNotes().getId());
         assertEquals(2, recipe.getCategories().size());
         assertEquals(2, recipe.getIngredients().size());
     }

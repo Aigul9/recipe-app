@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import springframework.recipe.commands.IngredientCommand;
 import springframework.recipe.commands.UnitOfMeasureCommand;
 import springframework.recipe.domain.Ingredient;
-import springframework.recipe.domain.Recipe;
 
 import java.math.BigDecimal;
 
@@ -25,6 +24,7 @@ class IngredientCommandToIngredientTest {
 
     @Test
     public void testEmptyObject() {
+        IngredientCommand ing = new IngredientCommand();
         assertNotNull(converter.convert(new IngredientCommand()));
     }
 
@@ -53,8 +53,6 @@ class IngredientCommandToIngredientTest {
         IngredientCommand command = new IngredientCommand();
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
-        UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
-        command.setUnitOfMeasure(unitOfMeasureCommand);
 
         //when
         Ingredient ingredient = converter.convert(command);

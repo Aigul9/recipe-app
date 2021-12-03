@@ -23,5 +23,5 @@ public class RecipeCommand {
     private Difficulty difficulty;
     private NotesCommand notes;
     private Set<IngredientCommand> ingredients = new HashSet<>();
-    private Set<CategoryCommand> categories = new HashSet<>();;
+    private Set<CategoryCommand> categories = new HashSet<>();
 }
