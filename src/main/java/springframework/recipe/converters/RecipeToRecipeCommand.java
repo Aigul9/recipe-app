@@ -27,7 +27,6 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
     @Override
     public RecipeCommand convert(Recipe source) {
         final RecipeCommand command = new RecipeCommand();
-        command.setId(source.getId());
         command.setCookTime(source.getCookTime());
         command.setPrepTime(source.getPrepTime());
         command.setDescription(source.getDescription());

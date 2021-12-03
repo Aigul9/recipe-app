@@ -15,7 +15,6 @@ public class UnitOfMeasureToUnitOfMeasureCommand implements Converter<UnitOfMeas
     @Override
     public UnitOfMeasureCommand convert(UnitOfMeasure source) {
         final UnitOfMeasureCommand uomc = new UnitOfMeasureCommand();
-        uomc.setId(source.getId());
         uomc.setDescription(source.getDescription());
         return uomc;
     }
