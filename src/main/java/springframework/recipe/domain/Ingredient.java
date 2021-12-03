@@ -19,11 +19,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Ingredient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Ingredient extends BaseEntity {
 
     private String description;
     private BigDecimal amount;

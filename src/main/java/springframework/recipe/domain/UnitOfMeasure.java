@@ -15,11 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class UnitOfMeasure {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UnitOfMeasure extends BaseEntity {
 
     private String description;
 }

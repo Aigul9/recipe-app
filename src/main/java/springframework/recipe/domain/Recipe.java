@@ -20,11 +20,7 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Recipe {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Recipe extends BaseEntity {
 
     private String description;
     private Integer prepTime;
