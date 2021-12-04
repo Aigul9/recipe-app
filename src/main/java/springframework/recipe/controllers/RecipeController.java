@@ -1,5 +1,6 @@
 package springframework.recipe.controllers;
 
+import com.sun.jdi.LongValue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +21,8 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @RequestMapping("/recipe/show/{id}")
-    public String showById(@PathVariable String id, Model model) {
+    @RequestMapping("/recipe/{id}/show")
+    public String getRecipe(@PathVariable String id, Model model) {
         log.debug("Getting recipe page");
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
@@ -33,10 +34,16 @@ public class RecipeController {
         return "recipe/recipeForm";
     }
 
+    @RequestMapping("recipe/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
+        return "recipe/recipeForm";
+    }
+
     @PostMapping
     @RequestMapping("recipe") //, method = RequestMethod.POST)
-    public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
+    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand command) {
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
-        return "redirect:/recipe/show/" + savedCommand.getId();
+        return String.format("redirect:/recipe/%d/show", savedCommand.getId());
     }
 }
