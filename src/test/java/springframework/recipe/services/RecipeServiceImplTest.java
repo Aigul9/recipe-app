@@ -61,7 +61,7 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeCoomandById() {
+    public void getRecipeCommandById() {
         Recipe recipe = new Recipe();
         recipe.setId(ID);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -92,5 +92,12 @@ class RecipeServiceImplTest {
         assertEquals(1, recipes.size());
 
         verify(recipeRepository, times(1)).findAll();
+    }
+
+    @Test
+    void deleteRecipe() {
+        recipeServiceImpl.deleteById(1L);
+        //no when, since it returns void
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }

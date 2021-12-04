@@ -13,6 +13,8 @@ import springframework.recipe.domain.Recipe;
 import springframework.recipe.services.RecipeService;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -55,7 +57,6 @@ class RecipeControllerTest {
                 .andExpect(model().attributeExists("recipe"));
     }
 
-
     @Test
     void getRecipeForm() throws Exception {
         mockMvc.perform(get("/recipe/new"))
@@ -81,15 +82,24 @@ class RecipeControllerTest {
     }
 
     @Test
-    void updateRecipe() throws Exception {
+    void getUpdateForm() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(ID);
 
-        when(recipeService.findCommandById(any())).thenReturn(recipeCommand);
+        when(recipeService.findCommandById(anyLong())).thenReturn(recipeCommand);
 
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeForm"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    void deleteRecipe() throws Exception {
+        mockMvc.perform(get("/recipe/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+        verify(recipeService, times(1)).deleteById(anyLong());
     }
 }
