@@ -33,7 +33,7 @@ class UnitOfMeasureServiceImplTest {
     }
 
     @Test
-    public void listAllUoms() throws Exception {
+    public void listAllUom() {
         //given
         Set<UnitOfMeasure> unitOfMeasures = new HashSet<>();
         UnitOfMeasure uom1 = new UnitOfMeasure();

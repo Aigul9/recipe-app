@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import springframework.recipe.commands.IngredientCommand;
 import springframework.recipe.converters.IngredientCommandToIngredient;
 import springframework.recipe.converters.IngredientToIngredientCommand;
+import springframework.recipe.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import springframework.recipe.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import springframework.recipe.domain.Ingredient;
 import springframework.recipe.domain.Recipe;
@@ -38,9 +39,9 @@ class IngredientServiceImplTest {
     IngredientService ingredientService;
 
     //init converters
-    public IngredientServiceImplTest(IngredientCommandToIngredient ingredientCommandToIngredient) {
-        this.ingredientCommandToIngredient = ingredientCommandToIngredient;
+    public IngredientServiceImplTest() {
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+        this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
     }
 
     @BeforeEach

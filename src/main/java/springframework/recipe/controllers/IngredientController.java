@@ -41,8 +41,6 @@ public class IngredientController {
     public String showIngredients(@PathVariable String recipeId,
                                   @PathVariable String ingredientId,
                                   Model model) {
-        log.debug(recipeId);
-        log.debug(ingredientId);
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(
                 Long.valueOf(recipeId), Long.valueOf(ingredientId)));
         return "recipe/ingredient/show";
