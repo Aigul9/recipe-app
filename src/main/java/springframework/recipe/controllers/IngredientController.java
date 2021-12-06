@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import springframework.recipe.commands.IngredientCommand;
+import springframework.recipe.commands.RecipeCommand;
+import springframework.recipe.commands.UnitOfMeasureCommand;
 import springframework.recipe.services.IngredientService;
 import springframework.recipe.services.RecipeService;
 import springframework.recipe.services.UnitOfMeasureService;
@@ -45,6 +47,28 @@ public class IngredientController {
                 Long.valueOf(recipeId), Long.valueOf(ingredientId)));
         return "recipe/ingredient/show";
     }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model){
+
+        //make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        //todo raise exception if null
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList",  unitOfMeasureService.listAllUom());
+
+        return "recipe/ingredient/ingredientForm";
+    }
+
 
     @GetMapping
     @RequestMapping("recipe/{recipeId}/ingredient/{ingredientId}/update")
