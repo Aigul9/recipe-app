@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
-import springframework.recipe.commands.RecipeCommand;
 import springframework.recipe.domain.Recipe;
 import springframework.recipe.services.RecipeServiceImpl;
 
