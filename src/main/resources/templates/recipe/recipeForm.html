@@ -12,6 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form th:object="${recipe}" th:action="@{/recipe/}" method="post">
+                <input type="hidden" th:field="*{id}"/>
                 <div class="panel-group">
                     <div class="card card-success border border-success" style="margin: 20px 0">
                         <div class="card-header bg-success text-light">
@@ -54,10 +55,11 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
-                                        <option>Easy</option>
-                                        <option>Medium</option>
-                                        <option>Hard</option>
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option
+                                                th:each="difficultyValue : ${T(springframework.recipe.domain.Difficulty).values()}"
+                                                th:value="${difficultyValue.name()}"
+                                                th:text="${difficultyValue.name()}"></option>
                                     </select>
                                 </div>
                             </div>
