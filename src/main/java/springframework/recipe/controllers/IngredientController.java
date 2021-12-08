@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import springframework.recipe.commands.IngredientCommand;
 import springframework.recipe.commands.RecipeCommand;
@@ -79,7 +80,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientForm";
     }
 
-    @GetMapping("recipe/{recipeId}/ingredient")
+    @PostMapping("recipe/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand) {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(ingredientCommand);
         log.debug("Saved recipe id: " + savedCommand.getRecipeId());
