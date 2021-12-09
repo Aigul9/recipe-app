@@ -41,6 +41,7 @@ class RecipeControllerTest {
         recipeController = new RecipeController(recipeService);
         mockMvc = MockMvcBuilders
                 .standaloneSetup(recipeController)
+                .setControllerAdvice(new ControllerExceptionHandler())
                 .build();
     }
 

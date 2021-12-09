@@ -76,10 +76,4 @@ public class RecipeController {
     public ModelAndView handleNotFound(Exception ex) {
         return genericExceptionMethod(ex, "404 Not Found");
     }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleBadRequest(Exception ex) {
-        return genericExceptionMethod(ex, "400 Number Format Exception");
-    }
 }
