@@ -29,20 +29,20 @@ public class ImageController {
     }
 
     @GetMapping("recipe/{id}/image")
-    public String showUploadForm(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
+    public String showUploadForm(@PathVariable Long id, Model model){
+        model.addAttribute("recipe", recipeService.findCommandById(id));
         return "recipe/imageUploadForm";
     }
 
     @PostMapping("recipe/{id}/image")
-    public String handleImagePost(@PathVariable String id, @RequestParam("imageFile") MultipartFile file){
-        imageService.saveImageFile(Long.valueOf(id), file);
+    public String handleImagePost(@PathVariable Long id, @RequestParam("imageFile") MultipartFile file){
+        imageService.saveImageFile(id, file);
         return "redirect:/recipe/" + id + "/show";
     }
 
     @GetMapping("recipe/{recipeId}/recipeImage")
-    public void renderImageFromDB(@PathVariable String recipeId, HttpServletResponse response) throws IOException {
-        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+    public void renderImageFromDB(@PathVariable Long recipeId, HttpServletResponse response) throws IOException {
+        RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
         //from boxed byte array to primitive
         byte[] byteArray = new byte[recipeCommand.getImage().length];
         int i = 0;
