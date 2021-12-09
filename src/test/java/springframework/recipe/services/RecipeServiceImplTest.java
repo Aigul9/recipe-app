@@ -9,6 +9,7 @@ import springframework.recipe.commands.RecipeCommand;
 import springframework.recipe.converters.RecipeCommandToRecipe;
 import springframework.recipe.converters.RecipeToRecipeCommand;
 import springframework.recipe.domain.Recipe;
+import springframework.recipe.exceptions.NotFoundException;
 import springframework.recipe.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -17,6 +18,8 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.never;
@@ -58,6 +61,22 @@ class RecipeServiceImplTest {
         assertNotNull(recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    public void getRecipeByIdNotFound() {
+        //given
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        // when
+        NotFoundException notFoundException = assertThrows(
+                NotFoundException.class, () -> recipeServiceImpl.findById(1L),
+                "Expected exception to throw an error. But it didn't"
+        );
+
+        // then
+        assertTrue(notFoundException.getMessage().contains("Recipe not found"));
     }
 
     @Test

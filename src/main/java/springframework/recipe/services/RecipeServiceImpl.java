@@ -6,6 +6,7 @@ import springframework.recipe.commands.RecipeCommand;
 import springframework.recipe.converters.RecipeCommandToRecipe;
 import springframework.recipe.converters.RecipeToRecipeCommand;
 import springframework.recipe.domain.Recipe;
+import springframework.recipe.exceptions.NotFoundException;
 import springframework.recipe.repositories.RecipeRepository;
 
 import javax.transaction.Transactional;
@@ -41,7 +42,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id) {
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
-        return recipeOptional.orElse(null);
+        return recipeOptional.orElseThrow(() -> new NotFoundException("Recipe not found"));
     }
 
     @Override
