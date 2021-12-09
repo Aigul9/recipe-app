@@ -101,11 +101,6 @@ class RecipeControllerTest {
 
     @Test
     void saveOrUpdateRecipeValidationFail() throws Exception {
-        RecipeCommand recipeCommand = new RecipeCommand();
-        recipeCommand.setId(ID);
-
-        when(recipeService.saveRecipeCommand(any())).thenReturn(recipeCommand);
-
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
