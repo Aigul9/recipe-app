@@ -1,13 +1,18 @@
 package springframework.recipe.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 import springframework.recipe.commands.RecipeCommand;
+import springframework.recipe.exceptions.NotFoundException;
 import springframework.recipe.services.RecipeService;
 
 @Slf4j
@@ -52,5 +57,15 @@ public class RecipeController {
         recipeService.deleteById(id);
         log.debug("Deleted: " + id);
         return "redirect:/";
+    }
+
+    //handler takes higher precedence than exception class
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+        log.error("Handling not found exception");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("404error");
+        return modelAndView;
     }
 }
