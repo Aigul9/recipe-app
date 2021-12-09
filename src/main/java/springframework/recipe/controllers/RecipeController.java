@@ -59,17 +59,27 @@ public class RecipeController {
         return "redirect:/";
     }
 
+    private ModelAndView genericExceptionMethod(Exception ex, String response) {
+        log.error(ex.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("response", response);
+        modelAndView.addObject("message", ex.getMessage());
+        modelAndView.setViewName("error");
+
+        return modelAndView;
+    }
+
     //handler takes higher precedence than exception class
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ModelAndView handleNotFound(Exception ex) {
-        log.error("Handling not found exception");
-        log.error(ex.getMessage());
+        return genericExceptionMethod(ex, "404 Not Found");
+    }
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("404error");
-        modelAndView.addObject("exception", ex);
-
-        return modelAndView;
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleBadRequest(Exception ex) {
+        return genericExceptionMethod(ex, "400 Number Format Exception");
     }
 }
