@@ -112,7 +112,7 @@ class RecipeControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipe"))
-                .andExpect(view().name("redirect:/recipe/1/show"));
+                .andExpect(view().name("recipe/recipeForm"));
     }
 
     @Test
