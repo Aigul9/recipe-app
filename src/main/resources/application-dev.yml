@@ -9,3 +9,17 @@ spring:
     database-platform: org.hibernate.dialect.MySQLInnoDBDialect
     database: mysql
     show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl:
+          delimiter: ";"
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: database_create.sql
+  sql:
+    init:
+      mode: always
