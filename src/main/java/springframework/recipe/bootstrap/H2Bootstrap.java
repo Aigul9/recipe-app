@@ -2,6 +2,7 @@ package springframework.recipe.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import springframework.recipe.domain.Category;
@@ -21,15 +22,16 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
+@Profile("default") // when nothing else is set
+public class H2Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public RecipeBootstrap(CategoryRepository categoryRepository,
-                           RecipeRepository recipeRepository,
-                           UnitOfMeasureRepository unitOfMeasureRepository) {
+    public H2Bootstrap(CategoryRepository categoryRepository,
+                       RecipeRepository recipeRepository,
+                       UnitOfMeasureRepository unitOfMeasureRepository) {
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;

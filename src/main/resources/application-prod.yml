@@ -9,3 +9,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLInnoDBDialect
     database: mysql
     show-sql: false
+  sql:
+    init:
+      mode: always
+      platform: mysql
