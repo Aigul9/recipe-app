@@ -29,23 +29,23 @@ class RecipeServiceTest {
     @Autowired
     RecipeToRecipeCommand recipeToRecipeCommand;
 
-    // comment this test because there is no recipe in the table
-//    @Transactional
-//    @Test
-//    public void testSaveOfDescription() {
-//        //given
-//        Iterable<Recipe> recipes = recipeRepository.findAll();
-//        Recipe testRecipe = recipes.iterator().next();
-//        RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
-//
-//        //when
-//        assert testRecipeCommand != null;
-//        testRecipeCommand.setDescription(NEW_DESCRIPTION);
-//        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
-//
-//        //then
-//        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
-//        assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
-//        assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
-//    }
+    // failing for now, because there is no data in recipe table
+    @Transactional
+    @Test
+    public void testSaveOfDescription() {
+        //given
+        Iterable<Recipe> recipes = recipeRepository.findAll();
+        Recipe testRecipe = recipes.iterator().next();
+        RecipeCommand testRecipeCommand = recipeToRecipeCommand.convert(testRecipe);
+
+        //when
+        assert testRecipeCommand != null;
+        testRecipeCommand.setDescription(NEW_DESCRIPTION);
+        RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
+
+        //then
+        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
+        assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
+        assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+    }
 }
